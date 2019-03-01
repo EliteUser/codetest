@@ -1,0 +1,23 @@
+.page-main {
+  margin-bottom: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-around;
+  border-bottom: 2px solid $border;
+
+  @media (max-width: $screen-desktop-sm) {
+    padding: 0 5%;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.page-main__inputs {
+  margin-bottom: 20px;
+
+  @media (max-width: $screen-desktop-sm) {
+    width: 100%;
+  }
+}
+

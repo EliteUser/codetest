@@ -1,0 +1,40 @@
+.button {
+  padding: 10px;
+  width: 100px;
+  display: block;
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 20px;
+  color: $font-light;
+  background-color: $button;
+  border: none;
+  border-radius: 10px;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+
+  &:active {
+    opacity: 0.6;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px $focus;
+  }
+}
+
+.button--cancel {
+  background-color: $button-cancel;
+}
+
+.button--disabled {
+  background-color: $button-disabled;
+
+  &:hover {
+    cursor: auto;
+    opacity: 1;
+  }
+}
+

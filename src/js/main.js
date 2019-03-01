@@ -1,13 +1,7 @@
-import {getRandomArrayElement, KEYCODE, getTiming} from "./util";
+import UserPresenter from './presenter/presenter';
 
-const foo = function (n) {
-  let sum = 0;
-  for (let i = 0; i < n; i++) {
-    sum += i;
-  }
-  return sum;
-};
-
-const bar = getTiming(foo);
-
-console.log(bar(1e9));
+const control = new UserPresenter();
+control.showDisplay();
+control.showProgressBar();
+control.showTextarea(1);
+control.showTextarea(2);

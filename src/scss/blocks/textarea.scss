@@ -1,3 +1,42 @@
 .textarea {
+  margin: 0 0 20px;
+  display: flex;
+  flex-direction: column;
 
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  h2 {
+    margin: 10px 0;
+  }
+}
+
+.textarea__label {
+  font-size: 24px;
+  line-height: 20px;
+}
+
+.textarea__input {
+  margin: 0;
+  padding: 15px;
+  width: 400px;
+  min-height: 270px;
+  font-family: 'monospace';
+  border: 2px solid $border;
+  border-radius: 10px;
+  resize: none;
+
+  &:hover {
+    box-shadow: 0 0 0 2px rgba($focus, 0.4);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px $focus;
+  }
+
+  @media (max-width: $screen-desktop-sm) {
+    width: 100%;
+  }
 }

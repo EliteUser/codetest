@@ -20,8 +20,10 @@ const sourcemaps = require(`gulp-sourcemaps`);
 const argv = require(`yargs`).argv;
 const webpack = require(`webpack`);
 const webpackStream = require(`webpack-stream`);
+const mocha = require(`gulp-mocha`);
 
-const isProduction = ( argv.production !== undefined );
+const isProduction = (argv.production !== undefined);
+const ghpages = require('gh-pages');
 
 /* Директории: исходники и сборка */
 
@@ -41,7 +43,7 @@ gulp.task(`browserSync`, function () {
     ui: false
   });
 
-  gulp.watch(`${config.src}/sсss/**/*.{scss,sass}`, gulp.series(`style`));
+  gulp.watch(`${config.src}/scss/**/*.{scss,sass}`, gulp.series(`style`));
   gulp.watch(`${config.src}/js/**/*.js`, gulp.series(`js`));
   gulp.watch(`${config.src}/**/*.html`, gulp.series(`html`));
   gulp.watch(`${config.build}/**/*.*`).on(`change`, browserSync.reload);
@@ -73,19 +75,6 @@ gulp.task(`style`, function () {
 });
 
 /* Транспайлинг JS и минификация */
-
-/*
-gulp.task(`js`, function () {
-  return gulp.src(`${config.src}/js/!**!/!*.js`)
-    .pipe(plumber())
-    .pipe(babel())
-    .pipe(concat(`main.js`))
-    .pipe(gulp.dest(`${config.build}/js`))
-    .pipe(uglifyJs())
-    .pipe(rename(`main.min.js`))
-    .pipe(gulp.dest(`${config.build}/js`));
-});
-*/
 
 gulp.task(`js`, function () {
   return gulp.src(`${config.src}/js/main.js`)
@@ -178,3 +167,16 @@ gulp.task(`build`, gulp.series(
   `js`
   )
 );
+
+gulp.task(`test`, function () {
+  return gulp
+    .src(`${config.src}/js/**/*.test.js`, {read: false})
+    .pipe(mocha({
+      compilers: `js:babel-core/register`,
+      reporter: `spec`
+    }));
+});
+
+gulp.task('gh-pages', function () {
+  return ghpages.publish(config.build, function(err) {});
+});
