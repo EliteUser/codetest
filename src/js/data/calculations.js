@@ -25,8 +25,9 @@ export const runCalculations = (functions, iterations, onStep, onFinish, onError
     try {
       calcResult = functions[currentFunctionIndex]();
     } catch (err) {
+      calcResult = {};
       clearTimeout(executionTimer);
-      onError();
+      onError(err);
     }
 
     if (calcResult) {

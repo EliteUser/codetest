@@ -48,6 +48,10 @@ export default class UserPresenter {
     this.displayView = new DisplayView();
 
     this.displayView.onRun = () => {
+      for (let i = 0; i < this._textareaNumber; i++) {
+        this[`textareaView${i + 1}`].textarea.classList.remove(`textarea__input--error`);
+      }
+
       const functions = [];
       for (let i = 1; i <= this._textareaNumber; i++) {
         const context = this[`textareaView${i}`];
@@ -62,8 +66,12 @@ export default class UserPresenter {
         this.displayView.changeResults(...args.map(getMeanTime));
       };
 
-      const onError = () => {
+      const onError = (err) => {
         this.progressView.changeProgress(0);
+
+        if (err.message === `Cant create new function`) {
+          err.view.textarea.classList.add(`textarea__input--error`);
+        }
       };
 
       this.displayView.disableRunButton();
@@ -85,7 +93,7 @@ export default class UserPresenter {
     let result = null;
 
     if (!input) {
-      input = `() => ({})`;
+      throw new Error(`Empty input`);
     }
 
     const func = new Function(`return (${input})(${iterations})`);
@@ -93,9 +101,10 @@ export default class UserPresenter {
     try {
       result = getTiming(func)();
     } catch (err) {
-      throw new Error(`Cant create new function`);
+      let error = new Error(`Cant create new function`);
+      error.view = this;
+      throw error;
     }
-
 
     return result;
   }

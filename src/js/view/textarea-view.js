@@ -17,7 +17,7 @@ export default class TextareaView extends AbstractView {
   }
 
   bind() {
-    this.textarea = this.element.querySelector(`.textarea`);
+    this.textarea = this.element.querySelector(`.textarea__input`);
     this.textarea.addEventListener(`input`, () => {
       this.onInput(this.textarea.value);
     });
