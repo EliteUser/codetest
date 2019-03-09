@@ -548,6 +548,10 @@ a {
   }
 }
 
+.textarea__input--error {
+  box-shadow: 0 0 0 2px #f44336;
+}
+
 .display {
   margin: 51px 0 40px;
   padding: 15px;
